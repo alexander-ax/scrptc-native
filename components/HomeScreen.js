@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, View, StatusBar, Image, ScrollView } from 'react-native'
+import { StyleSheet, View, StatusBar, Image, ScrollView, Animated, Easing } from 'react-native'
 import {
     Title,
     configureFonts,
@@ -17,6 +17,29 @@ import {
 import LottieView from 'lottie-react-native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { NavigationContainer } from '@react-navigation/native';
+import { useRef } from 'react';
+import * as Animatable from 'react-native-animatable'
+
+const titleEntrance = {
+    0: {
+        opacity: 0,
+        left: 10
+    },
+    1: {
+        opacity: 1,
+        left: 0
+    }
+}
+const cardEntrance = {
+    0: {
+        opacity: 0,
+        bottom: -35
+    },
+    1: {
+        opacity: 1,
+        bottom: -25
+    }
+}
 
 export default function HomeScreen() {
     const theme = {
@@ -34,32 +57,48 @@ export default function HomeScreen() {
     const Tab = createMaterialTopTabNavigator()
 
     const HomeTab = () => {
+
         return (
-            <View style={{
-                flex: 1,
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                padding: 10,
-            }}>
+            <View style={[
+                {
+                    flex: 1,
+                    justifyContent: 'space-evenly',
+                    alignItems: 'center',
+                    padding: 10,
+                },
+            ]}>
                 <FAB
                     style={styles.aboutus}
                     icon='information'
                     small
                     onPress={showDialog}>About Us</FAB>
 
-                <View >
+                <View style={{ width: '90%' }}>
                     <Headline style={{
-                        textAlign: 'center'
+                        textAlign: 'right'
                     }}>SCRPTC</Headline>
                     <Paragraph style={{
-                        textAlign: 'center'
+                        textAlign: 'right'
                     }}>The on-point dictionary app</Paragraph>
 
                 </View>
-                <LottieView source={require('../assets/lottie_reading.json')} autoPlay loop />
+
+                <Animatable.View style={[{
+                    position: 'absolute',
+                    height: '50%',
+                    opacity: 0
+                }]} animation={cardEntrance} delay={200}>
+                    <LottieView style={[
+                        {
+                            width: '100%',
+                        },
+                    ]} source={require('../assets/lottie_reading.json')} autoPlay loop />
+
+                </Animatable.View>
 
 
-                <Paragraph style={{ textAlign: 'center' }}>Cycle through our app using the navigation bar below</Paragraph>
+
+
 
 
                 {/* portal for dialogs */}
@@ -100,6 +139,7 @@ export default function HomeScreen() {
 
     return (
         <PaperProvider theme={theme} >
+
             <View style={{ marginTop: StatusBar.currentHeight }} />
             <NavigationContainer
 
@@ -114,6 +154,18 @@ export default function HomeScreen() {
                 </Tab.Navigator>
 
             </NavigationContainer>
+            <View style={{
+                position: 'absolute',
+                width: '110%',
+                bottom: -10,
+                left: -10,
+                transform: [{ rotateZ: '180deg' }],
+            }}>
+                <LottieView style={{
+                    width: '100%',
+                }} source={require('../assets/lottie_wave.json')} autoPlay loop />
+
+            </View>
         </PaperProvider>
     )
 }

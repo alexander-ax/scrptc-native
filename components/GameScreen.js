@@ -15,6 +15,19 @@ export default function GameScreen() {
             <View style={{ flex: 1, }}>
                 <Header title="Minigame" color='#1477B2' />
             </View>
+
+            <View style={{
+                position: 'absolute',
+                width: '110%',
+                bottom: -10,
+                left: -15,
+                transform: [{ rotateZ: '180deg' }],
+            }}>
+                <LottieView style={{
+                    width: '100%',
+                }} source={require('../assets/lottie_wave_4.json')} autoPlay loop />
+
+            </View>
         </PaperProvider >
     )
 }
