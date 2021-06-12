@@ -74,6 +74,16 @@ export default function DictionaryScreen() {
             top: 0
         }
     }
+    const sunEntrance = {
+        0: {
+            opacity: 0,
+            bottom: -80
+        },
+        1: {
+            opacity: 1,
+            bottom: -60
+        }
+    }
 
     const LoadingAnim = () => {
         if (_isLoading) {
@@ -248,6 +258,7 @@ export default function DictionaryScreen() {
                 width: '110%',
                 bottom: -10,
                 left: -15,
+                zIndex: 2,
                 transform: [{ rotateZ: '180deg' }],
             }}>
                 <LottieView style={{
@@ -255,6 +266,9 @@ export default function DictionaryScreen() {
                 }} source={require('../assets/lottie_wave1.json')} autoPlay loop />
 
             </View>
+            <Animatable.View animation={sunEntrance} duration={200} delay={200} easing='ease-out-expo' style={{ position: 'absolute', bottom: 0, width: '100%', justifyContent: 'center', alignItems: 'center' }}>
+                <LottieView style={{ height: 250, width: '100%', transform: [{ rotate: '-10deg' }] }} source={require('../assets/lottie_book.json')} autoPlay loop />
+            </Animatable.View>
         </PaperProvider>
     )
 
